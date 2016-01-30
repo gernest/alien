@@ -1,8 +1,12 @@
-# Alien
+# Alien [![Coverage
+Status](https://coveralls.io/repos/github/gernest/alien/badge.svg?branch=master)](https://coveralls.io/github/gernest/alien?branch=master)
+[![Build
+Status](https://travis-ci.org/gernest/alien.svg?branch=master)](https://travis-ci.org/gernest/alien)
+[![GoDoc](https://godoc.org/github.com/gernest/alien?status.svg)](https://godoc.org/github.com/gernest/alien)
 Alien is a lightweight http router( multiplexer) from outer space, made for
 humans.
 
-Documentation [docs]()
+Documentation [docs](https://godoc.org/github.com/gernest/alien)
 
 # Features
 
@@ -199,11 +203,11 @@ ok  	github.com/gernest/alien	193.458s
 
 # FAQ about alien
 
-## WHy name alien?
+## Why name alien?
 There is no magic in this package, just common sense with a juice of technology.
 Aliens don't believe in magic.
 
-## WHat is alien for?
+## What is alien for?
 Everyone, especially people who wants to understand more about Golang with a
 real project( not a toy ).
 
