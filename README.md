@@ -191,7 +191,7 @@ BenchmarkAlien_GithubAll-2   	     100	  64580632 ns/op	44826075 B/op	    1882 a
 BenchmarkAlien_GPlusStatic-2 	 1000000	      1283 ns/op	      48 B/op	       3 allocs/op
 BenchmarkAlien_GPlusParam-2  	   10000	    286417 ns/op	  189088 B/op	       9 allocs/op
 BenchmarkAlien_GPlus2Params-2	   10000	    415275 ns/op	  294360 B/op	      10 allocs/op
-BenchmarkAce_GPlusAll-2      	    5000	  18000915 ns/op	10774329 B/op	     133 allocs/op
+BenchmarkAlien_GPlusAll-2      	    5000	  18000915 ns/op	10774329 B/op	     133 allocs/op
 BenchmarkAlien_ParseStatic-2 	 1000000	      1309 ns/op	      80 B/op	       3 allocs/op
 BenchmarkAlien_ParseParam-2  	   10000	    164879 ns/op	  108838 B/op	       9 allocs/op
 BenchmarkAlien_Parse2Params-2	   10000	    267585 ns/op	  204160 B/op	      10 allocs/op

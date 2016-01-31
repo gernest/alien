@@ -52,6 +52,6 @@ func BenchmarkAlien_GPlus2Params(b *testing.B) {
 	benchRequest(b, gplusAlien, req)
 }
 
-func BenchmarkAce_GPlusAll(b *testing.B) {
+func BenchmarkAlien_GPlusAll(b *testing.B) {
 	benchRoutes(b, gplusAlien, gplusAPI)
 }
