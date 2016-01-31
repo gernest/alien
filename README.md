@@ -1,14 +1,14 @@
 # Alien [![Coverage Status](https://coveralls.io/repos/github/gernest/alien/badge.svg?branch=master)](https://coveralls.io/github/gernest/alien?branch=master) [![Build Status](https://travis-ci.org/gernest/alien.svg?branch=master)](https://travis-ci.org/gernest/alien) [![GoDoc](https://godoc.org/github.com/gernest/alien?status.svg)](https://godoc.org/github.com/gernest/alien)
 
-Alien is a lightweight http router( multiplexer) from outer space, made for
-humans.
+Alien is a lightweight http router( multiplexer) for Go( Golang ), made for
+humans who don't like magic.
 
 Documentation [docs](https://godoc.org/github.com/gernest/alien)
 
 # Features
 
 * fast ( see the benchmarks, or run them yourself)
-* lightweight ( just [a single file]() read all of it in less than a minute)
+* lightweight ( just [a single file](alien.go) read all of it in less than a minute)
 * safe( designed with concurrency in mind)
 * middleware support.
 * routes groups
@@ -19,6 +19,8 @@ Documentation [docs](https://godoc.org/github.com/gernest/alien)
 Instead of talking about how good Golang can be, I am trying to show how good Golang
 can be.
 
+Using the standard library only, following good practices and well tested code(
+Over 90% coverage)
 
 # Installation
 
@@ -209,6 +211,8 @@ Everyone, especially people who wants to understand more about Golang with a
 real project( not a toy ).
 
 ## How you can  contribute to alien!
+
+Contributions are welcome, 
 
 * share the project with friends and family
 * talk about alien on hacker news
