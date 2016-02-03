@@ -176,28 +176,34 @@ alien package.
 go test -bench="."
 ```
 
-These are results from an old 32 bit dell laptop with 2 GB of ram and 
-running linux mint.
+### memory consumption
+
+Static  | Github  | Google+  | Parse  
+-------|----------|----------|-------
+132904 B |176016 B  |12720 B   |22952 B
+
+### micro benchmarks
 
 ```bash
 PASS
-BenchmarkAlien_Param-2       	   10000	    123242 ns/op	  103802 B/op	       8 allocs/op
-BenchmarkAlien_Param5-2      	   10000	    270898 ns/op	  219256 B/op	      12 allocs/op
-BenchmarkAlien_Param20-2     	   10000	    646280 ns/op	  445555 B/op	      27 allocs/op
-BenchmarkAlien_ParamWrite-2  	   10000	   4095764 ns/op	  711800 B/op	    5031 allocs/op
-BenchmarkAlien_GithubStatic-2	 1000000	      1667 ns/op	      80 B/op	       3 allocs/op
-BenchmarkAlien_GithubParam-2 	   10000	    341458 ns/op	  224242 B/op	      10 allocs/op
-BenchmarkAlien_GithubAll-2   	     100	  64580632 ns/op	44826075 B/op	    1882 allocs/op
-BenchmarkAlien_GPlusStatic-2 	 1000000	      1283 ns/op	      48 B/op	       3 allocs/op
-BenchmarkAlien_GPlusParam-2  	   10000	    286417 ns/op	  189088 B/op	       9 allocs/op
-BenchmarkAlien_GPlus2Params-2	   10000	    415275 ns/op	  294360 B/op	      10 allocs/op
-BenchmarkAlien_GPlusAll-2      	    5000	  18000915 ns/op	10774329 B/op	     133 allocs/op
-BenchmarkAlien_ParseStatic-2 	 1000000	      1309 ns/op	      80 B/op	       3 allocs/op
-BenchmarkAlien_ParseParam-2  	   10000	    164879 ns/op	  108838 B/op	       9 allocs/op
-BenchmarkAlien_Parse2Params-2	   10000	    267585 ns/op	  204160 B/op	      10 allocs/op
-BenchmarkAlien_ParseAll-2    	    2000	  12309365 ns/op	 8086112 B/op	     194 allocs/op
-BenchmarkAlien_StaticAll-2   	    5000	    336983 ns/op	   13056 B/op	     471 allocs/op
-ok  	github.com/gernest/alien	193.458s
+BenchmarkAlien_Param-4           50000      162410 ns/op    504359 B/op        9 allocs/op
+BenchmarkAlien_Param5-4          20000      147724 ns/op    434577 B/op       12 allocs/op
+BenchmarkAlien_Param20-4         10000      158436 ns/op    446005 B/op       28 allocs/op
+BenchmarkAlien_ParamWrite-4      10000     2042458 ns/op   1162566 B/op     5033 allocs/op
+BenchmarkAlien_GithubStatic-4  2000000         791 ns/op       112 B/op        3 allocs/op
+BenchmarkAlien_GithubParam-4     20000      146323 ns/op    444544 B/op       10 allocs/op
+BenchmarkAlien_GithubAll-4         100    14494153 ns/op  44850284 B/op     1891 allocs/op
+BenchmarkAlien_GPlusStatic-4   2000000         643 ns/op        80 B/op        3 allocs/op
+BenchmarkAlien_GPlusParam-4      20000      129692 ns/op    374369 B/op        9 allocs/op
+BenchmarkAlien_GPlus2Params-4    10000      108297 ns/op    294492 B/op       10 allocs/op
+BenchmarkAlien_GPlusAll-4        10000     6647787 ns/op  21503686 B/op      145 allocs/op
+BenchmarkAlien_ParseStatic-4   2000000         697 ns/op       112 B/op        3 allocs/op
+BenchmarkAlien_ParseParam-4      50000      187463 ns/op    529425 B/op       10 allocs/op
+BenchmarkAlien_Parse2Params-4    20000      141359 ns/op    404469 B/op       10 allocs/op
+BenchmarkAlien_ParseAll-4        10000   100911815 ns/op  40159520 B/op      230 allocs/op
+BenchmarkAlien_StaticAll-4       10000      183958 ns/op     19008 B/op      471 allocs/op
+ok    github.com/gernest/alien  1140.811s
+
 ```
 
 # FAQ about alien
