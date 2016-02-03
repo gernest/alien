@@ -206,28 +206,10 @@ ok    github.com/gernest/alien  1140.811s
 
 ```
 
-# FAQ about alien
+# Contributing
+Start with clicking the star button to make the author and his neighbors happy. Then fork the repository and submit a pull request for whatever change you want to be added to this project.
 
-## Why name alien?
-There is no magic in this package, just common sense with a juice of technology.
-Aliens don't believe in magic.
-
-## What is alien for?
-Everyone, especially people who wants to understand more about Golang with a
-real project( not a toy ).
-
-## How you can  contribute to alien!
-
-Contributions are welcome, 
-
-* share the project with friends and family
-* talk about alien on hacker news
-* talk about alien on reddit
-* tweet about alien
-* star  alien repostory
-* fork it and forget
-* use alien for your new project
-* buy the author a beer
+If you have any questions, just open an issue.
 
 # Author
 Geofrey Ernest  [@gernest](https://twitter.com/gernesti) on twitter
