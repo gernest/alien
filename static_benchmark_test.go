@@ -165,7 +165,10 @@ var staticRoutes = []testRoute{
 var staticAlien *Mux
 
 func init() {
-	staticAlien = loadAlien(staticRoutes)
+	calcMem("staticAPI", func() {
+		staticAlien = loadAlien(staticRoutes)
+	})
+
 }
 
 func BenchmarkAlien_StaticAll(b *testing.B) {

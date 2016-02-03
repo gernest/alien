@@ -2,6 +2,7 @@ package alien
 
 import (
 	"net/http"
+	"runtime"
 	"testing"
 )
 
@@ -63,6 +64,23 @@ func benchRoutes(b *testing.B, router http.Handler, routes []testRoute) {
 			router.ServeHTTP(w, r)
 		}
 	}
+}
+func calcMem(name string, load func()) {
+
+	m := new(runtime.MemStats)
+
+	// before
+	runtime.GC()
+	runtime.ReadMemStats(m)
+	before := m.HeapAlloc
+
+	load()
+
+	// after
+	runtime.GC()
+	runtime.ReadMemStats(m)
+	after := m.HeapAlloc
+	println("   "+name+":", after-before, "Bytes")
 }
 
 func loadAlien(routes []testRoute) *Mux {

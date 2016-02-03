@@ -308,7 +308,9 @@ var githubAPI = []testRoute{
 var githubAlien *Mux
 
 func init() {
-	githubAlien = loadAlien(githubAPI)
+	calcMem("githubAPI", func() {
+		githubAlien = loadAlien(githubAPI)
+	})
 }
 
 func BenchmarkAlien_GithubStatic(b *testing.B) {

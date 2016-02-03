@@ -52,7 +52,10 @@ var parseAPI = []testRoute{
 var parseAlien *Mux
 
 func init() {
-	parseAlien = loadAlien(parseAPI)
+	calcMem("parseAPI", func() {
+		parseAlien = loadAlien(parseAPI)
+	})
+
 }
 
 func BenchmarkAlien_ParseStatic(b *testing.B) {
