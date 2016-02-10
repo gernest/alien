@@ -461,7 +461,7 @@ func (m *Mux) NotFoundHandler(h http.Handler) {
 // ServeHTTP implements http.Handler interface. It muliplexes http requests
 // against registered handlers.
 func (m *Mux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	p := r.URL.Path
+	p := path.Clean(r.URL.Path)
 	h, err := m.find(r.Method, p)
 	if err != nil {
 		m.notFound.ServeHTTP(w, r)
