@@ -71,7 +71,6 @@ func (n *node) insert(pattern string, val *route) error {
 	if n.typ != nodeRoot {
 		return errors.New("inserting on a non root node")
 	}
-	size := len(pattern)
 	var level *node
 
 	for k, ch := range pattern {
@@ -85,7 +84,7 @@ func (n *node) insert(pattern string, val *route) error {
 		c := level.findChild(ch)
 		switch level.typ {
 		case nodeParam:
-			if k < size && ch != '/' {
+			if k < len(pattern) && ch != '/' {
 				continue
 			}
 		}
@@ -185,15 +184,15 @@ func (r *route) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 // theri coreesponding values, returning them in a comma separated  string of a
 // key:value nature. please see the tests for more details.
 func parseParams(matched, pattern string) (result string, err error) {
-	p1 := strings.Split(matched, "/")
-	p2 := strings.Split(pattern, "/")
-	s1 := len(p1)
-	s2 := len(p2)
-	if s1 < s2 {
-		err = errBadPattern
-		return
-	}
 	if strings.Contains(pattern, ":") || strings.Contains(pattern, "*") {
+		p1 := strings.Split(matched, "/")
+		p2 := strings.Split(pattern, "/")
+		s1 := len(p1)
+		s2 := len(p2)
+		if s1 < s2 {
+			err = errBadPattern
+			return
+		}
 		for k, v := range p2 {
 			if len(v) > 0 {
 				switch v[0] {
