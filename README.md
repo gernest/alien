@@ -7,7 +7,7 @@ Documentation [docs](https://godoc.org/github.com/gernest/alien)
 
 # Features
 
- * fast ( see the benchmarks, or run them yourself)
+* fast ( see the benchmarks, or run them yourself)
 * lightweight ( just [a single file](alien.go) read all of it in less than a minute)
 * safe( designed with concurrency in mind)
 * middleware support.
