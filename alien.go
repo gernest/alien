@@ -39,15 +39,13 @@ type node struct {
 	typ      nodeType
 	mu       sync.RWMutex
 	value    *route
-	parent   *node
 	children []*node
 }
 
 func (n *node) branch(key rune, val *route, typ ...nodeType) *node {
 	child := &node{
-		key:    key,
-		value:  val,
-		parent: n,
+		key:   key,
+		value: val,
 	}
 	if len(typ) > 0 {
 		child.typ = typ[0]
