@@ -231,8 +231,9 @@ type Params map[string]string
 // Load loads params found in src into p.
 func (p Params) Load(src string) {
 	s := strings.Split(src, ",")
+	var vars []string
 	for _, v := range s {
-		vars := strings.Split(v, ":")
+		vars = strings.Split(v, ":")
 		if len(vars) != 2 {
 			continue
 		}
@@ -247,13 +248,13 @@ func (p Params) Get(key string) string {
 
 // GetParams returrns route params stored in r.
 func GetParams(r *http.Request) Params {
-	c, err := r.Cookie(cookieName)
-	if err != nil {
-		return nil
+	c := r.Header.Get(cookieName)
+	if c != "" {
+		p := make(Params)
+		p.Load(c)
+		return p
 	}
-	p := make(Params)
-	p.Load(c.Value)
-	return p
+	return nil
 }
 
 type router struct {
@@ -469,8 +470,7 @@ func (m *Mux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	params, _ := parseParams(p, h.path) // check if there is any url params
 	if params != "" {
-		c := &http.Cookie{Name: cookieName, Value: params}
-		r.AddCookie(c)
+		r.Header.Set(cookieName, params)
 	}
 	h.ServeHTTP(w, r)
 }
