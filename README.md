@@ -16,10 +16,8 @@ Documentation [docs](https://godoc.org/github.com/gernest/alien)
 
 
 # Motivation
-Instead of talking about how good Golang can be, I am trying to show how good Golang
-can be.
-
-Using the standard library only, following good practices and well tested code(
+I wanted a simple, fast, and lightweight router that has no unnecessary overhead
+using the standard library only, following good practices and well tested code(
 Over 90% coverage)
 
 # Installation
