@@ -72,6 +72,7 @@ func (n *node) insert(pattern string, val *route) error {
 		return errors.New("inserting on a non root node")
 	}
 	var level *node
+	var child *node
 
 	for k, ch := range pattern {
 		if k == 0 {
@@ -81,15 +82,15 @@ func (n *node) insert(pattern string, val *route) error {
 			level = n
 		}
 
-		c := level.findChild(ch)
+		child = level.findChild(ch)
 		switch level.typ {
 		case nodeParam:
 			if k < len(pattern) && ch != '/' {
 				continue
 			}
 		}
-		if c != nil {
-			level = c
+		if child != nil {
+			level = child
 			continue
 		}
 		switch ch {
