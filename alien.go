@@ -21,7 +21,7 @@ var (
 	errRouteNotFound = errors.New("route not found")
 	errBadPattern    = errors.New("bad pattern")
 	errUnknownMethod = errors.New("unkown http method")
-	cookieName       = "_alien"
+	headerName       = "_alien"
 )
 
 type nodeType int
@@ -246,7 +246,7 @@ func (p Params) Get(key string) string {
 
 // GetParams returrns route params stored in r.
 func GetParams(r *http.Request) Params {
-	c := r.Header.Get(cookieName)
+	c := r.Header.Get(headerName)
 	if c != "" {
 		p := make(Params)
 		p.Load(c)
@@ -468,7 +468,7 @@ func (m *Mux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	params, _ := parseParams(p, h.path) // check if there is any url params
 	if params != "" {
-		r.Header.Set(cookieName, params)
+		r.Header.Set(headerName, params)
 	}
 	h.ServeHTTP(w, r)
 }
