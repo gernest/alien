@@ -210,7 +210,7 @@ Start with clicking the star button to make the author and his neighbors happy. 
 If you have any questions, just open an issue.
 
 # Author
-Geofrey Ernest  [@gernest](https://twitter.com/gernesti) on twitter
+Geofrey Ernest  [@gernesti](https://twitter.com/gernesti) on twitter
 
 # Licence
 MIT see [LICENCE](LICENCE)
