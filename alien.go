@@ -358,7 +358,7 @@ func (r *router) find(method, path string) (*route, error) {
 	return nil, errRouteNotFound
 }
 
-// Mux is a http multiplexer that allow matching of http requests to the
+// Mux is a http multiplexer that allows matching of http requests to the
 // registered http handlers.
 //
 // Mux supports named parameters in urls like
@@ -491,7 +491,7 @@ func (m *Mux) Group(pattern string) *Mux {
 
 }
 
-// Use assings midlewares to the current *Mux. All routes registered by the *Mux
+// Use assigns midlewares to the current *Mux. All routes registered by the *Mux
 // after this call will have the middlewares assigned to them.
 func (m *Mux) Use(middleware ...func(http.Handler) http.Handler) {
 	if len(middleware) > 0 {
