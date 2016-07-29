@@ -34,7 +34,10 @@ var gplusAPI = []testRoute{
 var gplusAlien *Mux
 
 func init() {
-	gplusAlien = loadAlien(gplusAPI)
+	calcMem("gplusAPI", func() {
+		gplusAlien = loadAlien(gplusAPI)
+	})
+
 }
 
 func BenchmarkAlien_GPlusStatic(b *testing.B) {

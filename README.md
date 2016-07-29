@@ -16,10 +16,8 @@ Documentation [docs](https://godoc.org/github.com/gernest/alien)
 
 
 # Motivation
-Instead of talking about how good Golang can be, I am trying to show how good Golang
-can be.
-
-Using the standard library only, following good practices and well tested code(
+I wanted a simple, fast, and lightweight router that has no unnecessary overhead
+using the standard library only, following good practices and well tested code(
 Over 90% coverage)
 
 # Installation
@@ -176,55 +174,43 @@ alien package.
 go test -bench="."
 ```
 
-These are results from an old 32 bit dell laptop with 2 GB of ram and 
-running linux mint.
+### memory consumption
+
+Static  | Github  | Google+  | Parse  
+-------|----------|----------|-------
+132904 B |175898 B  |12720 B   |22952 B
+
+### micro benchmarks
 
 ```bash
 PASS
-BenchmarkAlien_Param-2       	   10000	    123242 ns/op	  103802 B/op	       8 allocs/op
-BenchmarkAlien_Param5-2      	   10000	    270898 ns/op	  219256 B/op	      12 allocs/op
-BenchmarkAlien_Param20-2     	   10000	    646280 ns/op	  445555 B/op	      27 allocs/op
-BenchmarkAlien_ParamWrite-2  	   10000	   4095764 ns/op	  711800 B/op	    5031 allocs/op
-BenchmarkAlien_GithubStatic-2	 1000000	      1667 ns/op	      80 B/op	       3 allocs/op
-BenchmarkAlien_GithubParam-2 	   10000	    341458 ns/op	  224242 B/op	      10 allocs/op
-BenchmarkAlien_GithubAll-2   	     100	  64580632 ns/op	44826075 B/op	    1882 allocs/op
-BenchmarkAlien_GPlusStatic-2 	 1000000	      1283 ns/op	      48 B/op	       3 allocs/op
-BenchmarkAlien_GPlusParam-2  	   10000	    286417 ns/op	  189088 B/op	       9 allocs/op
-BenchmarkAlien_GPlus2Params-2	   10000	    415275 ns/op	  294360 B/op	      10 allocs/op
-BenchmarkAlien_GPlusAll-2      	    5000	  18000915 ns/op	10774329 B/op	     133 allocs/op
-BenchmarkAlien_ParseStatic-2 	 1000000	      1309 ns/op	      80 B/op	       3 allocs/op
-BenchmarkAlien_ParseParam-2  	   10000	    164879 ns/op	  108838 B/op	       9 allocs/op
-BenchmarkAlien_Parse2Params-2	   10000	    267585 ns/op	  204160 B/op	      10 allocs/op
-BenchmarkAlien_ParseAll-2    	    2000	  12309365 ns/op	 8086112 B/op	     194 allocs/op
-BenchmarkAlien_StaticAll-2   	    5000	    336983 ns/op	   13056 B/op	     471 allocs/op
-ok  	github.com/gernest/alien	193.458s
+BenchmarkAlien_Param-4       	 2000000	       910 ns/op	     128 B/op	       4 allocs/op
+BenchmarkAlien_Param5-4      	 1000000	      1667 ns/op	     344 B/op	       8 allocs/op
+BenchmarkAlien_Param20-4     	  300000	      4365 ns/op	    1664 B/op	      23 allocs/op
+BenchmarkAlien_ParamWrite-4  	 1000000	      1611 ns/op	     520 B/op	       9 allocs/op
+BenchmarkAlien_GithubStatic-4	 3000000	       489 ns/op	      16 B/op	       1 allocs/op
+BenchmarkAlien_GithubParam-4 	 1000000	      1727 ns/op	     304 B/op	       6 allocs/op
+BenchmarkAlien_GithubAll-4   	    5000	    321403 ns/op	   45601 B/op	    1043 allocs/op
+BenchmarkAlien_GPlusStatic-4 	 5000000	       375 ns/op	       8 B/op	       1 allocs/op
+BenchmarkAlien_GPlusParam-4  	 1000000	      1244 ns/op	     176 B/op	       5 allocs/op
+BenchmarkAlien_GPlus2Params-4	 1000000	      1859 ns/op	     336 B/op	       6 allocs/op
+BenchmarkAlien_GPlusAll-4    	  100000	     17470 ns/op	    2512 B/op	      62 allocs/op
+BenchmarkAlien_ParseStatic-4 	 5000000	       398 ns/op	       8 B/op	       1 allocs/op
+BenchmarkAlien_ParseParam-4  	 1000000	      1066 ns/op	     176 B/op	       5 allocs/op
+BenchmarkAlien_Parse2Params-4	 1000000	      1364 ns/op	     256 B/op	       6 allocs/op
+BenchmarkAlien_ParseAll-4    	   50000	     26921 ns/op	    3696 B/op	      93 allocs/op
+BenchmarkAlien_StaticAll-4   	   10000	    116653 ns/op	    3952 B/op	     157 allocs/op
+ok  	github.com/gernest/alien	27.801s
+
 ```
 
-# FAQ about alien
+# Contributing
+Start with clicking the star button to make the author and his neighbors happy. Then fork the repository and submit a pull request for whatever change you want to be added to this project.
 
-## Why name alien?
-There is no magic in this package, just common sense with a juice of technology.
-Aliens don't believe in magic.
-
-## What is alien for?
-Everyone, especially people who wants to understand more about Golang with a
-real project( not a toy ).
-
-## How you can  contribute to alien!
-
-Contributions are welcome, 
-
-* share the project with friends and family
-* talk about alien on hacker news
-* talk about alien on reddit
-* tweet about alien
-* star  alien repostory
-* fork it and forget
-* use alien for your new project
-* buy the author a beer
+If you have any questions, just open an issue.
 
 # Author
-Geofrey Ernest  [@gernest](https://twitter.com/gernesti) on twitter
+Geofrey Ernest  [@gernesti](https://twitter.com/gernesti) on twitter
 
 # Licence
 MIT see [LICENCE](LICENCE)

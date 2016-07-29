@@ -21,7 +21,7 @@ var (
 	errRouteNotFound = errors.New("route not found")
 	errBadPattern    = errors.New("bad pattern")
 	errUnknownMethod = errors.New("unkown http method")
-	cookieName       = "_alien"
+	headerName       = "_alien"
 )
 
 type nodeType int
@@ -39,15 +39,13 @@ type node struct {
 	typ      nodeType
 	mu       sync.RWMutex
 	value    *route
-	parent   *node
 	children []*node
 }
 
 func (n *node) branch(key rune, val *route, typ ...nodeType) *node {
 	child := &node{
-		key:    key,
-		value:  val,
-		parent: n,
+		key:   key,
+		value: val,
 	}
 	if len(typ) > 0 {
 		child.typ = typ[0]
@@ -71,8 +69,8 @@ func (n *node) insert(pattern string, val *route) error {
 	if n.typ != nodeRoot {
 		return errors.New("inserting on a non root node")
 	}
-	size := len(pattern)
 	var level *node
+	var child *node
 
 	for k, ch := range pattern {
 		if k == 0 {
@@ -82,15 +80,15 @@ func (n *node) insert(pattern string, val *route) error {
 			level = n
 		}
 
-		c := level.findChild(ch)
+		child = level.findChild(ch)
 		switch level.typ {
 		case nodeParam:
-			if k < size && ch != '/' {
+			if k < len(pattern) && ch != '/' {
 				continue
 			}
 		}
-		if c != nil {
-			level = c
+		if child != nil {
+			level = child
 			continue
 		}
 		switch ch {
@@ -185,15 +183,15 @@ func (r *route) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 // theri coreesponding values, returning them in a comma separated  string of a
 // key:value nature. please see the tests for more details.
 func parseParams(matched, pattern string) (result string, err error) {
-	p1 := strings.Split(matched, "/")
-	p2 := strings.Split(pattern, "/")
-	s1 := len(p1)
-	s2 := len(p2)
-	if s1 < s2 {
-		err = errBadPattern
-		return
-	}
 	if strings.Contains(pattern, ":") || strings.Contains(pattern, "*") {
+		p1 := strings.Split(matched, "/")
+		p2 := strings.Split(pattern, "/")
+		s1 := len(p1)
+		s2 := len(p2)
+		if s1 < s2 {
+			err = errBadPattern
+			return
+		}
 		for k, v := range p2 {
 			if len(v) > 0 {
 				switch v[0] {
@@ -231,8 +229,9 @@ type Params map[string]string
 // Load loads params found in src into p.
 func (p Params) Load(src string) {
 	s := strings.Split(src, ",")
+	var vars []string
 	for _, v := range s {
-		vars := strings.Split(v, ":")
+		vars = strings.Split(v, ":")
 		if len(vars) != 2 {
 			continue
 		}
@@ -247,13 +246,13 @@ func (p Params) Get(key string) string {
 
 // GetParams returrns route params stored in r.
 func GetParams(r *http.Request) Params {
-	c, err := r.Cookie(cookieName)
-	if err != nil {
-		return nil
+	c := r.Header.Get(headerName)
+	if c != "" {
+		p := make(Params)
+		p.Load(c)
+		return p
 	}
-	p := make(Params)
-	p.Load(c.Value)
-	return p
+	return nil
 }
 
 type router struct {
@@ -461,7 +460,7 @@ func (m *Mux) NotFoundHandler(h http.Handler) {
 // ServeHTTP implements http.Handler interface. It muliplexes http requests
 // against registered handlers.
 func (m *Mux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	p := r.URL.Path
+	p := path.Clean(r.URL.Path)
 	h, err := m.find(r.Method, p)
 	if err != nil {
 		m.notFound.ServeHTTP(w, r)
@@ -469,8 +468,7 @@ func (m *Mux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	params, _ := parseParams(p, h.path) // check if there is any url params
 	if params != "" {
-		c := &http.Cookie{Name: cookieName, Value: params}
-		r.AddCookie(c)
+		r.Header.Set(headerName, params)
 	}
 	h.ServeHTTP(w, r)
 }
