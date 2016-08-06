@@ -103,7 +103,7 @@ visiting your localhost at path `/hello/my/margicl/sheeplike/ship` will print
 
 ## middlewares
 Middlewares are anything that satisfy the interface
-`func(http.Handler)http.Handler` . Meaning you have thousand of middlewares at
+`func(http.Handler)http.Handler` . Meaning you have thousands of middlewares at
 your disposal, you can use middlewares from many golang http frameworks on
 alien(most support the interface).
 
