@@ -374,7 +374,7 @@ func (r *router) find(method, path string) (*route, error) {
 //   /hello/world/tanzania
 //   /hello/world/afica/tanzania.png
 // where by inside the request passed to the handler, the param with key
-// whatever will be set and valuew will be
+// whatever will be set and value will be
 //   world
 //   world/tanzania
 //   world/afica/tanzania.png
@@ -407,47 +407,47 @@ func (m *Mux) AddRoute(method, pattern string, h func(http.ResponseWriter, *http
 	return m.addRoute(method, pattern, h, m.middleware...)
 }
 
-// Get registers h wih pattern and method GET.
+// Get registers h with pattern and method GET.
 func (m *Mux) Get(pattern string, h func(http.ResponseWriter, *http.Request)) error {
 	return m.AddRoute(httpMethods.get, pattern, h)
 }
 
-// Put registers h wih pattern and method PUT.
+// Put registers h with pattern and method PUT.
 func (m *Mux) Put(path string, h func(http.ResponseWriter, *http.Request)) error {
 	return m.AddRoute(httpMethods.put, path, h)
 }
 
-// Post registers h wih pattern and method POST.
+// Post registers h with pattern and method POST.
 func (m *Mux) Post(path string, h func(http.ResponseWriter, *http.Request)) error {
 	return m.AddRoute(httpMethods.post, path, h)
 }
 
-// Patch registers h wih pattern and method PATCH.
+// Patch registers h with pattern and method PATCH.
 func (m *Mux) Patch(path string, h func(http.ResponseWriter, *http.Request)) error {
 	return m.AddRoute(httpMethods.patch, path, h)
 }
 
-// Head registers h wih pattern and method HEAD.
+// Head registers h with pattern and method HEAD.
 func (m *Mux) Head(path string, h func(http.ResponseWriter, *http.Request)) error {
 	return m.AddRoute(httpMethods.head, path, h)
 }
 
-// Options registers h wih pattern and method OPTIONS.
+// Options registers h with pattern and method OPTIONS.
 func (m *Mux) Options(path string, h func(http.ResponseWriter, *http.Request)) error {
 	return m.AddRoute(httpMethods.options, path, h)
 }
 
-// Connect  registers h wih pattern and method CONNECT.
+// Connect  registers h with pattern and method CONNECT.
 func (m *Mux) Connect(path string, h func(http.ResponseWriter, *http.Request)) error {
 	return m.AddRoute(httpMethods.connect, path, h)
 }
 
-// Trace registers h wih pattern and method TRACE.
+// Trace registers h with pattern and method TRACE.
 func (m *Mux) Trace(path string, h func(http.ResponseWriter, *http.Request)) error {
 	return m.AddRoute(httpMethods.trace, path, h)
 }
 
-// Delete registers h wih pattern and method DELETE.
+// Delete registers h with pattern and method DELETE.
 func (m *Mux) Delete(path string, h func(http.ResponseWriter, *http.Request)) error {
 	return m.AddRoute(httpMethods.delete, path, h)
 }
