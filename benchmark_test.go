@@ -28,7 +28,7 @@ func (m *mockResponseWriter) WriteHeader(int) {}
 func alienHandle(_ http.ResponseWriter, _ *http.Request) {}
 
 func alienHandleWrite(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte(GetParams(r).Get("name")))
+	_, _ = w.Write([]byte(GetParams(r).Get("name")))
 }
 
 func benchRequest(b *testing.B, router http.Handler, r *http.Request) {
@@ -86,24 +86,24 @@ func calcMem(name string, load func()) {
 func loadAlien(routes []testRoute) *Mux {
 	m := New()
 	h := func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(r.RequestURI))
+		_, _ = w.Write([]byte(r.RequestURI))
 	}
 	for _, v := range routes {
-		m.AddRoute(v.method, v.path, h)
+		_ = m.AddRoute(v.method, v.path, h)
 	}
 	return m
 }
 
 func BenchmarkAlien_Param(b *testing.B) {
 	m := New()
-	m.Get("/user/:name", alienHandle)
+	_ = m.Get("/user/:name", alienHandle)
 	req, _ := http.NewRequest("GET", "/user/gordon", nil)
 	benchRequest(b, m, req)
 }
 
 func BenchmarkAlien_Param5(b *testing.B) {
 	m := New()
-	m.Get("/:a/:b/:c/:d/:e", alienHandle)
+	_ = m.Get("/:a/:b/:c/:d/:e", alienHandle)
 	req, _ := http.NewRequest("GET", "/test/test/test/test/test", nil)
 	benchRequest(b, m, req)
 }
@@ -112,14 +112,14 @@ func BenchmarkAlien_Param20(b *testing.B) {
 	twentyColon := "/:a/:b/:c/:d/:e/:f/:g/:h/:i/:j/:k/:l/:m/:n/:o/:p/:q/:r/:s/:t"
 	twentyRoute := "/a/b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t"
 	m := New()
-	m.Get(twentyColon, alienHandle)
+	_ = m.Get(twentyColon, alienHandle)
 	req, _ := http.NewRequest("GET", twentyRoute, nil)
 	benchRequest(b, m, req)
 }
 
 func BenchmarkAlien_ParamWrite(b *testing.B) {
 	m := New()
-	m.Get("/user/:name", alienHandleWrite)
+	_ = m.Get("/user/:name", alienHandleWrite)
 	req, _ := http.NewRequest("GET", "/user/gordon", nil)
 	benchRequest(b, m, req)
 }

@@ -34,17 +34,17 @@ func TestParseParams(t *testing.T) {
 
 func TestRouter(t *testing.T) {
 	h := func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(r.URL.Path))
+		_, _ = w.Write([]byte(r.URL.Path))
 	}
 	m := New()
-	m.Get("/GET", h)
-	m.Put("/PUT", h)
-	m.Post("/POST", h)
-	m.Head("/HEAD", h)
-	m.Patch("/PATCH", h)
-	m.Options("/OPTIONS", h)
-	m.Connect("/CONNECT", h)
-	m.Trace("/TRACE", h)
+	_ = m.Get("/GET", h)
+	_ = m.Put("/PUT", h)
+	_ = m.Post("/POST", h)
+	_ = m.Head("/HEAD", h)
+	_ = m.Patch("/PATCH", h)
+	_ = m.Options("/OPTIONS", h)
+	_ = m.Connect("/CONNECT", h)
+	_ = m.Trace("/TRACE", h)
 	ts := httptest.NewServer(m)
 	defer ts.Close()
 	sample := []string{
@@ -63,7 +63,7 @@ func TestRouter(t *testing.T) {
 		if resp.StatusCode != http.StatusOK {
 			t.Errorf("expected %d got %d %s", http.StatusOK, resp.StatusCode, req.URL.Path)
 		}
-		resp.Body.Close()
+		_ = resp.Body.Close()
 	}
 }
 
@@ -101,7 +101,7 @@ func TestNode(t *testing.T) {
 
 func TestRouter_mismatch(t *testing.T) {
 	h := func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(r.URL.Path))
+		_, _ = w.Write([]byte(r.URL.Path))
 	}
 	sample := []struct {
 		method, path, phony string
@@ -111,7 +111,7 @@ func TestRouter_mismatch(t *testing.T) {
 	}
 	m := New()
 	for _, v := range sample {
-		m.AddRoute(v.method, v.path, h)
+		_ = m.AddRoute(v.method, v.path, h)
 	}
 
 	// register unknown method
@@ -134,7 +134,7 @@ func TestRouter_mismatch(t *testing.T) {
 		if resp.StatusCode != http.StatusNotFound {
 			t.Errorf("expected %d got %d %s", http.StatusNotFound, resp.StatusCode, req.URL.Path)
 		}
-		resp.Body.Close()
+		_ = resp.Body.Close()
 	}
 }
 
@@ -152,7 +152,7 @@ func TestRouter_params(t *testing.T) {
 	}
 	m := New()
 	for _, v := range sample {
-		m.Get(v.path, h)
+		_ = m.Get(v.path, h)
 	}
 
 	ts := httptest.NewServer(m)
@@ -164,14 +164,14 @@ func TestRouter_params(t *testing.T) {
 			t.Fatal(err)
 		}
 		buf := &bytes.Buffer{}
-		io.Copy(buf, resp.Body)
+		_, _ = io.Copy(buf, resp.Body)
 		if resp.StatusCode != http.StatusOK {
 			t.Errorf("expected %d got %d ", http.StatusOK, resp.StatusCode)
 		}
 		if buf.String() != v.params {
 			t.Errorf("expected %s got %s", v.params, buf)
 		}
-		resp.Body.Close()
+		_ = resp.Body.Close()
 	}
 
 }
@@ -179,7 +179,7 @@ func TestRouter_params(t *testing.T) {
 func TestMux_Group(t *testing.T) {
 	m := New()
 	g := m.Group("/hello")
-	g.Get("/world", func(_ http.ResponseWriter, _ *http.Request) {})
+	_ = g.Get("/world", func(_ http.ResponseWriter, _ *http.Request) {})
 
 	req, _ := http.NewRequest("GET", "/hello/world", nil)
 	w := httptest.NewRecorder()
@@ -228,13 +228,13 @@ func TestAlienMiddlewares(t *testing.T) {
 
 	middle := func(in http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			w.Write([]byte("alien"))
+			_, _ = w.Write([]byte("alien"))
 			in.ServeHTTP(w, r)
 		})
 	}
 	m := New()
 	m.Use(middle)
-	m.Get("/", h)
+	_ = m.Get("/", h)
 	req, _ := http.NewRequest("GET", "/", nil)
 	w := httptest.NewRecorder()
 	m.ServeHTTP(w, req)
