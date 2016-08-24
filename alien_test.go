@@ -96,6 +96,10 @@ func TestNode(t *testing.T) {
 			t.Errorf("expected %s got %s", v.path, h.path)
 		}
 	}
+	err := n.insert("", &route{path: ""})
+	if err == nil {
+		t.Error("expected an error")
+	}
 
 }
 

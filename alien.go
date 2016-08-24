@@ -72,6 +72,10 @@ func (n *node) insert(pattern string, val *route) error {
 	var level *node
 	var child *node
 
+	if pattern == "" {
+		return errors.New("empty pattern is not supported")
+	}
+
 	for k, ch := range pattern {
 		if k == 0 {
 			if ch != '/' {
