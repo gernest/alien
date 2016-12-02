@@ -172,4 +172,4 @@ If you have any questions, just open an issue.
 Geofrey Ernest  [@gernesti](https://twitter.com/gernesti) on twitter
 
 # Licence
-MIT see [LICENCE](LICENCE)
+MIT see [LICENSE](LICENSE)
