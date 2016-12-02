@@ -193,40 +193,6 @@ func TestMux_Group(t *testing.T) {
 	}
 }
 
-func TestAlienMux(t *testing.T) {
-	apis := []struct {
-		name   string
-		routes []testRoute
-	}{
-		{" Github", githubAPI},
-		{"Parse", parseAPI},
-		{"GPLUS", gplusAPI},
-		{"Static", staticRoutes},
-	}
-
-	req, _ := http.NewRequest("GET", "/", nil)
-	u := req.URL
-	rq := u.RawQuery
-
-	for _, api := range apis {
-		mux := loadAlien(api.routes)
-		for _, r := range api.routes {
-			w := httptest.NewRecorder()
-			req.Method = r.method
-			req.RequestURI = r.path
-			u.Path = r.path
-			u.RawQuery = rq
-			mux.ServeHTTP(w, req)
-			if w.Code != 200 || w.Body.String() != r.path {
-				t.Errorf(
-					"%s in API %s: %d - %s; expected %s %s\n",
-					"alien", api.name, w.Code, w.Body.String(), r.method, r.path,
-				)
-			}
-		}
-	}
-}
-
 func TestAlienMiddlewares(t *testing.T) {
 	h := func(_ http.ResponseWriter, _ *http.Request) {}
 

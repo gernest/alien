@@ -163,47 +163,6 @@ func main() {
 
 visiting your localhost at path `/home/alone` will print `home alone`
 
-# Benchmarks
-The benchmarks for alien are based on [go-hhtp-routing-benchmark](https://github.com/julienschmidt/go-http-routing-benchmark) for some reason I wanted to include
-them in alien so anyone can benchmark for him/herself ( no more magic).
-
-You can run all benchmarks by running the foolowing command in the root of the
-alien package.
-
-```bash
-go test -bench="."
-```
-
-### memory consumption
-
-Static  | Github  | Google+  | Parse  
--------|----------|----------|-------
-132904 B |175898 B  |12720 B   |22952 B
-
-### micro benchmarks
-
-```bash
-PASS
-BenchmarkAlien_Param-4       	 2000000	       910 ns/op	     128 B/op	       4 allocs/op
-BenchmarkAlien_Param5-4      	 1000000	      1667 ns/op	     344 B/op	       8 allocs/op
-BenchmarkAlien_Param20-4     	  300000	      4365 ns/op	    1664 B/op	      23 allocs/op
-BenchmarkAlien_ParamWrite-4  	 1000000	      1611 ns/op	     520 B/op	       9 allocs/op
-BenchmarkAlien_GithubStatic-4	 3000000	       489 ns/op	      16 B/op	       1 allocs/op
-BenchmarkAlien_GithubParam-4 	 1000000	      1727 ns/op	     304 B/op	       6 allocs/op
-BenchmarkAlien_GithubAll-4   	    5000	    321403 ns/op	   45601 B/op	    1043 allocs/op
-BenchmarkAlien_GPlusStatic-4 	 5000000	       375 ns/op	       8 B/op	       1 allocs/op
-BenchmarkAlien_GPlusParam-4  	 1000000	      1244 ns/op	     176 B/op	       5 allocs/op
-BenchmarkAlien_GPlus2Params-4	 1000000	      1859 ns/op	     336 B/op	       6 allocs/op
-BenchmarkAlien_GPlusAll-4    	  100000	     17470 ns/op	    2512 B/op	      62 allocs/op
-BenchmarkAlien_ParseStatic-4 	 5000000	       398 ns/op	       8 B/op	       1 allocs/op
-BenchmarkAlien_ParseParam-4  	 1000000	      1066 ns/op	     176 B/op	       5 allocs/op
-BenchmarkAlien_Parse2Params-4	 1000000	      1364 ns/op	     256 B/op	       6 allocs/op
-BenchmarkAlien_ParseAll-4    	   50000	     26921 ns/op	    3696 B/op	      93 allocs/op
-BenchmarkAlien_StaticAll-4   	   10000	    116653 ns/op	    3952 B/op	     157 allocs/op
-ok  	github.com/gernest/alien	27.801s
-
-```
-
 # Contributing
 Start with clicking the star button to make the author and his neighbors happy. Then fork the repository and submit a pull request for whatever change you want to be added to this project.
 
