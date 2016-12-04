@@ -10,14 +10,7 @@ import (
 )
 
 var (
-	eof         = rune(0)
-	httpMethods = struct {
-		get, head, patch, put, delete, post string
-		connect, options, trace             string
-	}{
-		"GET", "HEAD", "PATCH", "PUT", "DELETE", "POST",
-		"CONNECT", "OPTIONS", "TRACE",
-	}
+	eof              = rune(0)
 	errRouteNotFound = errors.New("route not found")
 	errBadPattern    = errors.New("bad pattern")
 	errUnknownMethod = errors.New("unkown http method")
@@ -270,47 +263,47 @@ func (r *router) addRoute(method, path string, h func(http.ResponseWriter, *http
 		newRoute.middleware = append(newRoute.middleware, wares...)
 	}
 	switch method {
-	case httpMethods.get:
+	case "GET":
 		if r.get == nil {
 			r.get = &node{typ: nodeRoot}
 		}
 		return r.get.insert(path, newRoute)
-	case httpMethods.post:
+	case "POST":
 		if r.post == nil {
 			r.post = &node{typ: nodeRoot}
 		}
 		return r.post.insert(path, newRoute)
-	case httpMethods.put:
+	case "PUT":
 		if r.put == nil {
 			r.put = &node{typ: nodeRoot}
 		}
 		return r.put.insert(path, newRoute)
-	case httpMethods.patch:
+	case "PATCH":
 		if r.patch == nil {
 			r.patch = &node{typ: nodeRoot}
 		}
 		return r.patch.insert(path, newRoute)
-	case httpMethods.head:
+	case "HEAD":
 		if r.head == nil {
 			r.head = &node{typ: nodeRoot}
 		}
 		return r.head.insert(path, newRoute)
-	case httpMethods.connect:
+	case "CONNECT":
 		if r.connect == nil {
 			r.connect = &node{typ: nodeRoot}
 		}
 		return r.connect.insert(path, newRoute)
-	case httpMethods.options:
+	case "OPTIONS":
 		if r.options == nil {
 			r.options = &node{typ: nodeRoot}
 		}
 		return r.options.insert(path, newRoute)
-	case httpMethods.trace:
+	case "TRACE":
 		if r.trace == nil {
 			r.trace = &node{typ: nodeRoot}
 		}
 		return r.trace.insert(path, newRoute)
-	case httpMethods.delete:
+	case "DELETE":
 		if r.delete == nil {
 			r.delete = &node{typ: nodeRoot}
 		}
@@ -321,39 +314,39 @@ func (r *router) addRoute(method, path string, h func(http.ResponseWriter, *http
 
 func (r *router) find(method, path string) (*route, error) {
 	switch method {
-	case httpMethods.get:
+	case "GET":
 		if r.get != nil {
 			return r.get.find(path)
 		}
-	case httpMethods.post:
+	case "POST":
 		if r.post != nil {
 			return r.post.find(path)
 		}
-	case httpMethods.put:
+	case "PUT":
 		if r.put != nil {
 			return r.put.find(path)
 		}
-	case httpMethods.patch:
+	case "PATCH":
 		if r.patch != nil {
 			return r.patch.find(path)
 		}
-	case httpMethods.head:
+	case "HEAD":
 		if r.head != nil {
 			return r.head.find(path)
 		}
-	case httpMethods.connect:
+	case "CONNECT":
 		if r.connect != nil {
 			return r.connect.find(path)
 		}
-	case httpMethods.options:
+	case "OPTIONS":
 		if r.options != nil {
 			return r.options.find(path)
 		}
-	case httpMethods.trace:
+	case "TRACE":
 		if r.trace != nil {
 			return r.trace.find(path)
 		}
-	case httpMethods.delete:
+	case "DELETE":
 		if r.delete != nil {
 			return r.delete.find(path)
 		}
@@ -413,47 +406,47 @@ func (m *Mux) AddRoute(method, pattern string, h func(http.ResponseWriter, *http
 
 // Get registers h with pattern and method GET.
 func (m *Mux) Get(pattern string, h func(http.ResponseWriter, *http.Request)) error {
-	return m.AddRoute(httpMethods.get, pattern, h)
+	return m.AddRoute("GET", pattern, h)
 }
 
 // Put registers h with pattern and method PUT.
 func (m *Mux) Put(path string, h func(http.ResponseWriter, *http.Request)) error {
-	return m.AddRoute(httpMethods.put, path, h)
+	return m.AddRoute("PUT", path, h)
 }
 
 // Post registers h with pattern and method POST.
 func (m *Mux) Post(path string, h func(http.ResponseWriter, *http.Request)) error {
-	return m.AddRoute(httpMethods.post, path, h)
+	return m.AddRoute("POST", path, h)
 }
 
 // Patch registers h with pattern and method PATCH.
 func (m *Mux) Patch(path string, h func(http.ResponseWriter, *http.Request)) error {
-	return m.AddRoute(httpMethods.patch, path, h)
+	return m.AddRoute("PATCH", path, h)
 }
 
 // Head registers h with pattern and method HEAD.
 func (m *Mux) Head(path string, h func(http.ResponseWriter, *http.Request)) error {
-	return m.AddRoute(httpMethods.head, path, h)
+	return m.AddRoute("HEAD", path, h)
 }
 
 // Options registers h with pattern and method OPTIONS.
 func (m *Mux) Options(path string, h func(http.ResponseWriter, *http.Request)) error {
-	return m.AddRoute(httpMethods.options, path, h)
+	return m.AddRoute("OPTIONS", path, h)
 }
 
 // Connect  registers h with pattern and method CONNECT.
 func (m *Mux) Connect(path string, h func(http.ResponseWriter, *http.Request)) error {
-	return m.AddRoute(httpMethods.connect, path, h)
+	return m.AddRoute("CONNECT", path, h)
 }
 
 // Trace registers h with pattern and method TRACE.
 func (m *Mux) Trace(path string, h func(http.ResponseWriter, *http.Request)) error {
-	return m.AddRoute(httpMethods.trace, path, h)
+	return m.AddRoute("TRACE", path, h)
 }
 
 // Delete registers h with pattern and method DELETE.
 func (m *Mux) Delete(path string, h func(http.ResponseWriter, *http.Request)) error {
-	return m.AddRoute(httpMethods.delete, path, h)
+	return m.AddRoute("DELETE", path, h)
 }
 
 // NotFoundHandler is executed when the request route is not found.
