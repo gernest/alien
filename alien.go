@@ -480,8 +480,10 @@ func (m *Mux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 //   /home/alone
 func (m *Mux) Group(pattern string) *Mux {
 	return &Mux{
-		prefix: pattern,
-		router: m.router,
+		prefix:     pattern,
+		router:     m.router,
+		middleware: m.middleware,
+		notFound:   m.notFound,
 	}
 
 }
