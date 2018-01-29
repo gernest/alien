@@ -22,7 +22,7 @@ func TestParseParams(t *testing.T) {
 	}
 
 	for _, v := range sample {
-		n, err := parseParams(v.match, v.pattern)
+		n, err := ParseParams(v.match, v.pattern)
 		if err != nil {
 			t.Error(err)
 		}

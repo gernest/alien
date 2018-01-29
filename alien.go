@@ -169,7 +169,7 @@ func (r *route) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	base.ServeHTTP(w, req)
 }
 
-// parseParams parses params found in mateched from pattern. There are two kinds
+// ParseParams parses params found in mateched from pattern. There are two kinds
 // of params, one to capture a segment which starts with : and a nother to
 // capture everything( a.k.a catch all) whis starts with *.
 //
@@ -179,7 +179,7 @@ func (r *route) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 // Will result into name:world. this function captures the named params and
 // theri coreesponding values, returning them in a comma separated  string of a
 // key:value nature. please see the tests for more details.
-func parseParams(matched, pattern string) (result string, err error) {
+func ParseParams(matched, pattern string) (result string, err error) {
 	if strings.Contains(pattern, ":") || strings.Contains(pattern, "*") {
 		p1 := strings.Split(matched, "/")
 		p2 := strings.Split(pattern, "/")
@@ -463,7 +463,7 @@ func (m *Mux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		m.notFound.ServeHTTP(w, r)
 		return
 	}
-	params, _ := parseParams(p, h.path) // check if there is any url params
+	params, _ := ParseParams(p, h.path) // check if there is any url params
 	if params != "" {
 		r.Header.Set(headerName, params)
 	}
