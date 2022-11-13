@@ -13,7 +13,7 @@ var (
 	eof              = rune(0)
 	errRouteNotFound = errors.New("route not found")
 	errBadPattern    = errors.New("bad pattern")
-	errUnknownMethod = errors.New("unkown http method")
+	errUnknownMethod = errors.New("unknown http method")
 	headerName       = "_alien"
 )
 
@@ -309,7 +309,7 @@ func (r *router) addRoute(method, path string, h func(http.ResponseWriter, *http
 		}
 		return r.delete.insert(path, newRoute)
 	}
-	return errUnknownMethod
+	return errnownMethod
 }
 
 func (r *router) find(method, path string) (*route, error) {
