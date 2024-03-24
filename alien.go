@@ -10,6 +10,7 @@ import (
 )
 
 var (
+	allMethods       = []string{"GET", "PUT", "POST", "HEAD", "PATCH", "OPTIONS", "CONNECT", "TRACE"}
 	eof              = rune(0)
 	errRouteNotFound = errors.New("route not found")
 	errBadPattern    = errors.New("bad pattern")
@@ -447,6 +448,33 @@ func (m *Mux) Trace(path string, h func(http.ResponseWriter, *http.Request)) err
 // Delete registers h with pattern and method DELETE.
 func (m *Mux) Delete(path string, h func(http.ResponseWriter, *http.Request)) error {
 	return m.AddRoute("DELETE", path, h)
+}
+
+// ContainsRoute checks if a route is present in the Mux.
+// It takes two arguments: path (string) and method (string).
+// If method is empty, it will look for the route in all HTTP methods.
+// It returns a boolean value indicating whether the route is found or not, along with an error if any.
+func (m *Mux) ContainsRoute(path, method string) (bool, error) {
+	findRoute := func(method string) (bool, error) {
+		_, err := m.find(method, path)
+		if err == nil {
+			return true, nil
+		}
+		if !errors.Is(err, errRouteNotFound) {
+			return false, err
+		}
+		return false, nil
+	}
+	if method != "" {
+		return findRoute(method)
+	}
+	for _, method = range allMethods {
+		ok, err := findRoute(method)
+		if ok || err != nil {
+			return ok, err
+		}
+	}
+	return false, nil
 }
 
 // NotFoundHandler is executed when the request route is not found.

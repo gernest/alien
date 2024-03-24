@@ -193,6 +193,48 @@ func TestMux_Group(t *testing.T) {
 	}
 }
 
+func TestMux_ContainsRoute(t *testing.T) {
+	m := New()
+	registers := map[string]func(string, func(http.ResponseWriter, *http.Request)) error{
+		"GET":     m.Get,
+		"PUT":     m.Put,
+		"POST":    m.Post,
+		"HEAD":    m.Head,
+		"PATCH":   m.Patch,
+		"OPTIONS": m.Options,
+		"CONNECT": m.Connect,
+		"TRACE":   m.Trace,
+	}
+	for method, register := range registers {
+		path := fmt.Sprintf("/%s", method)
+		ok, err := m.ContainsRoute(path, "")
+		if err != nil {
+			t.Error(err)
+		}
+		if ok {
+			t.Error("expected false got true")
+		}
+		err = register(path, nil)
+		if err != nil {
+			t.Error(err)
+		}
+		ok, err = m.ContainsRoute(path, "")
+		if err != nil {
+			t.Error(err)
+		}
+		if !ok {
+			t.Error("expected true got false")
+		}
+		ok, err = m.ContainsRoute(path, method)
+		if err != nil {
+			t.Error(err)
+		}
+		if !ok {
+			t.Error("expected true got false")
+		}
+	}
+}
+
 func TestAlienMiddlewares(t *testing.T) {
 	h := func(_ http.ResponseWriter, _ *http.Request) {}
 
